@@ -20,6 +20,8 @@ const customGlobals = {
   insertLast: 'readonly',
   throttle: 'readonly',
   debounce: 'readonly',
+  addClass: 'readonly',
+  removeClass: 'readonly',
 };
 
 export default defineConfig([
