@@ -1,4 +1,5 @@
 // // 1. input 선택하기
+console.log('하ㅑ이');
 // // 2. input 이벤트 바인딩
 // //    -addEventListener('input')
 // // 3. input value값 가져오기
@@ -95,15 +96,15 @@
 // 4. result에 렌더링 하기
 // 5. 예외처리 : 이름이 없을 경우, 숫자만 들어올 경우 예외 처리.
 
-import { getNode as $ } from './lib/dom/getNode.js';
-import jujeobData, { data } from './data/data.js';
-import { insertLast } from './lib/dom/insert.js';
-import { getRandom } from './lib/math/getRandom.js';
-import { showAlert } from './lib/dom/showAlert.js';
-import { shake } from './lib/animation/shake.js';
-import { clearContent } from './lib/dom/clearContent.js';
+// import { getNode as $ } from './lib/dom/getNode.js';
+// import jujeobData, { data } from './data/data.js';
+// import { insertLast } from './lib/dom/insert.js';
+// import { getRandom } from './lib/math/getRandom.js';
+// import { showAlert } from './lib/dom/showAlert.js';
+// import { shake } from './lib/animation/shake.js';
+// import { clearContent } from './lib/dom/clearContent.js';
 
-const nameField = $('#nameField');
+// const nameField = $('#nameField');
 
 // function doJujeob(name) {
 //   const jujeob = jujeobData(name);
@@ -112,38 +113,63 @@ const nameField = $('#nameField');
 
 // doJujeob();
 
-const submit = $('#submit');
-const result = $('.result');
+// const submit = $('#submit');
+// const result = $('.result');
 
-function doJujeob(e) {
-  e.preventDefault();
+// function doJujeob(e) {
+//   e.preventDefault();
 
-  const name = nameField.value;
-  const list = data(name);
-  const pick = list[getRandom(list.length)];
+//   const name = nameField.value;
+//   const list = data(name);
+//   const pick = list[getRandom(list.length)];
 
-  if (!name || name.replaceAll(' ', '') === '') {
-    showAlert('.alert-error', '공백은 허용되지 않습니다.');
-    shake(nameField);
-    return;
+//   if (!name || name.replaceAll(' ', '') === '') {
+//     showAlert('.alert-error', '공백은 허용되지 않습니다.');
+//     shake(nameField);
+//     return;
+//   }
+
+//   if (!isNaN(Number(name))) {
+//     showAlert('.alert-error', '정확한 이름을 입력해 주세요.');
+//     shake(nameField);
+//     return;
+//   }
+
+//   clearContent(result);
+//   insertLast(result, pick);
+// }
+
+// function handleCopy() {
+//   const text = this.textContent;
+//   navigator.clipboard.writeText(text).then(() => {
+//     showAlert('.alert-success', '클립보드 복사 완료!');
+//   });
+// }
+
+// submit.addEventListener('click', doJujeob);
+// result.addEventListener('click', handleCopy);
+/*-----------------------------------------------------------------*/
+
+import { diceAnimation } from './lib/index.js';
+import { getNode as $ } from './lib/dom/getNode.js';
+
+// 주사위 굴리기 버튼 선택
+// 클릭 이벤트 바인딩
+
+const [rollingBtn, recordBtn, resetBtn] = $('.buttonGroup > button'); // 배열의 구조분해 할당임
+
+let isClicked = false;
+let stopAnimation;
+function handleRollingDice() {
+  if (!isClicked) {
+    console.log('재생!');
+    stopAnimation = setInterval(diceAnimation, 300);
+  } else {
+    console.log('멈춰!');
+    clearInterval(stopAnimation);
   }
 
-  if (!isNaN(Number(name))) {
-    showAlert('.alert-error', '정확한 이름을 입력해 주세요.');
-    shake(nameField);
-    return;
-  }
-
-  clearContent(result);
-  insertLast(result, pick);
+  isClicked = !isClicked;
 }
 
-function handleCopy() {
-  const text = this.textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    showAlert('.alert-success', '클립보드 복사 완료!');
-  });
-}
-
-submit.addEventListener('click', doJujeob);
-result.addEventListener('click', handleCopy);
+rollingBtn.addEventListener('click', handleRollingDice);
