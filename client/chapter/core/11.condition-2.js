@@ -8,17 +8,23 @@ let value = Boolean(b);
 
 // 논리곱(그리고) 연산자
 let AandB = a && b;
+console.log(AandB);
+
 // 논리곱 할당 연산자
+
 // a &&= b;
-// a = a&&b와 같다.
+// a = a && b;
 
 // 논리합(또는) 연산자
-let AorB;
+let AorB = a || b;
+console.log(AorB);
+
 // 논리합 할당 연산자
+
 // a ||= b;
 
 // 부정 연산자
-let reverseValue = !!value; // 느낌표 두 개는 자동형 변환입니다.
+let reverseValue = !!value;
 
 // 조건 처리
 
@@ -26,43 +32,54 @@ let reverseValue = !!value; // 느낌표 두 개는 자동형 변환입니다.
 let whichFalsy = true && ' ' && [] && { thisIsFalsy: false };
 
 // 첫번째 Truthy를 찾는 연산 (||)
-let whichTruthy = false;
-se || '' || [2, 3].length || { thisIsTruthy: true }; // 2가 출력됨.
+let whichTruthy = false || '' || [2, 3].length || { thisIsTruthy: true };
 
-// let begin = prompt('누구십니까?');
-// if (begin == 'Admin') {
-//   let password = prompt('비밀번호를 입력해주세요.');
-//   const _password = password.toLowerCase().trim();
-//   if (_password == 'TheMaster') {
-//     alert('환영합니다!');
-//   } else if (!_password || _password == '') {
-//     alert('취소되었습니다.');
-//   } else {
-//     alert('인증에 실패하였습니다.');
-//   }
-// } else if (!begin) {
-//   alert('취소되었습니다.');
-// } else {
-//   alert('누구인지 모르겠습니다.');
-// }
+/* 
+1. 대소문자 구분 없이 받을 수 있게 
+2. 공백 문자 처리
+3. 콘솔창에 에러가 발생하면 안됩니다.
 
-// const userName = prompt('누구십니까?');
-// alert(userName);
 
-// if (userName == 'Admin') {
-//   alert(userName);
-//   const password = prompt('비밀번호를 입력해주세요.');
-//   const _password = password.toLowerCase().trim(); // userName.replace(/|s*/g,'') === '' 도 trim 대신 가능.
 
-//   if (_password === 'TheMaster') {
-//     alert('환영합니다!');
-//   } else if (_password === null) {
-//     alert('취소되었습니다.');
-//   } else {
-//     alert('인증에 실패하였습니다.');
-//   }
-// } else if (userName === null) {
-//   alert('취소되었습니다.');
-// } else {
-//   alert('누구인지 모르겠습니다.');
-// }
+*/
+
+console.clear();
+
+
+
+
+
+function logIn(){
+
+  const userName = prompt('누구십니까?');
+
+  // if(userName === null || userName === undefined) return;
+  if(!userName) return;
+
+  if(userName.toLowerCase() === 'admin'){
+    
+    const password = prompt('비밀번호는?');
+
+    if(password.toLowerCase() === 'themaster'){
+      console.log('Welcome!');
+      
+    }else if(password === null){
+      console.log('canceled');
+      
+    }else{
+      console.log('Wrong password');
+      logIn();
+      
+    }
+    
+  }else if(userName === null || userName.replace(/\s*/g,'') === ''){
+    console.log('cancel');
+    
+  }else{
+    console.log('아돈노');
+    
+  }
+
+}
+
+

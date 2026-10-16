@@ -6,32 +6,37 @@
 // console.log('총 합 = ', 21500 + 3200 + 9800 + 4700);
 // console.log('총 합 = ', 3800 + 15200 - 500 + 80200);
 // console.log('총 합 = ', 560 + 5000 + 27100 + 10200);
-// console.log('총 합 = ', 9000 - 2500 + 5000 + 11900); // how 번거로움 without function
+// console.log('총 합 = ', 9000 - 2500 + 5000 + 11900);
 
 function getRandomValue() {
-  return;
+  return Math.random() > 0.5 ? 1 : 0;
 }
+
 // 함수 선언
+
 function calcPrice(
-  priceA = getRandomValue(),
+  priceA,
   priceB = getRandomValue(),
   priceC = getRandomValue()
 ) {
-  //   if (priceC === undefined) priceC = 0;
-  //   if (!priceC) priceC=0;
-  //   priceC = priceC || 0;
-  //   priceC ||=0;
-  //   priceC = priceC ?? 0;
-  //   priceC ??= 0;
-  if (!priceA) {
-    throw new Error('1개 이상의 인수를 넣어야 합니다.'); // 에러를 직접 만들어 브라우저에 던질 수 있다.
+  // if(priceC === undefined) priceC = 0;
+  // if( !priceC ) priceC = 0;
+  // priceC = priceC || 0;
+  // priceC ||= 0;
+  // priceC = priceC ?? 0;
+  // priceC ??= 0;
+
+  if(!priceA){
+    throw new Error('calcPrice 함수의 첫 번째 인자는 필수 입력 항목입니다.');
   }
+
 
   return priceA + priceB + priceC;
 }
 
 // 함수 호출
-const total = calcPrice(1000, 1300);
+const total = calcPrice(1);
+
 console.log(total);
 
 // 함수 값 반환
@@ -50,67 +55,130 @@ console.log(total);
 
 // rem(pxValue: number|string, base: number):string;
 // let rem;
-function rem(pxValue, base = 16) {
-  if (!pxValue)
-    throw new Error('rem 함수의 첫 번째 인수는 필수 입력값 입니다.');
-  if (typeof pxValue === 'string') {
-    pxValue = parseInt(pxValue, 10); // parseFloat은 문자열을 제외하고 정수만 출력하거나, 소수점을 해석합니다.
+
+function rem (pxValue, base = 16){
+
+  if(!pxValue) throw new Error('rem 함수의 첫 번째 인수는 필수 입력값 입니다.');
+  if(typeof pxValue === 'string') {
+    pxValue = parseInt(pxValue,10);
   }
-  return pxValue * base + 'px';
+
+  return pxValue / base + 'rem'
+
 }
-console.assert(rem('3rem') === '1.875rem');
+
+
+
+console.assert(rem('30px') === '1.875rem');
+
+
+
+
 
 // css(node: string, prop: string, value: number|strung) : string;
+
+
 const first = document.querySelector('.first');
 
-function setCss(node, prop) {
-  if (typeof node === 'string') {
-    node = document.querySelector(node); // 객체 안에 'color'있어? -> 'color' in document.body.style..
-  }
 
-  if (!(prop in document.body.style)) {
-    throw new Error(
-      'getCss 함수의 두 번째 인수는 유효한 css 속성이어야 합니다.'
-    );
-  }
+// DOM에서 스타일 값을 가져올 때 element.Style.prop으로 가져올 수 없음.
+// 계산이 완료된 스타일 값  getComputedStyle() 메서드를 사용해서 값을 가져와야 함
 
-  return getComputedStyle(node)[prop]; //.prop이 되지 않아 바꿈
-}
-getCss(first, 'font-size'); // '32px'
-getCss('.first', 'font-size');
-/*
-객체의 속성에 접근하는 방법은 2가지가 있습니다.
-    1. 점 표기법 (ex. obj.key )
-    2. 대괄호 표기법 (ex. obj[key] )
-*/
 
-//DOM에서 스타일 값을 가져올 때 element.Style.prop으로 가져올 수 없음.
-//계산이 완료된 스타일 값 getComputedStyle() 메서드를 사용해서 값을 가져와야 함
+
+// getCss(first,'font-size'); // '32px'
+// getCss('.first','font-size'); // '32px'
+
 
 // setCss()
-function setCss(node, prop, value) {
-  if (typeof node === 'string') node = document.querySelector(node);
-  if (!(prop in document.body.style))
-    throw new Error(
-      'setCss 함수의 두 번째 인수는 유효한 css속성이어야 합니다.'
-    );
-  if (!value)
-    throw new Error('setCss 함수의 세 번째 인수는 필수 입력 값 입니다.');
 
-  node.style[prop] = value; // 왜 prop에 대괄호?
-}
-setCss(first, 'color', 'orange');
 
-function css(node, prop, value) {
-  if (!value) {
-    //getter
-    getCss(node, prop);
-  } else {
-    //setter
-    setCss(node, prop, value);
+
+// setCss(first,'color','orange');
+
+
+/* 
+
+객체의 속성에 접근하는 방법은 2가지가 있습니다.
+
+    1. 점 표기법    (ex. obj.key )
+    2. 대괄호 표기법 (ex. obj[key])
+*/
+
+  
+// 모듈화 / encapsulation 캡슐화 
+
+const css = (function(){
+
+  
+  function getCss(node,prop){
+
+    if(typeof node === 'string'){
+      node = document.querySelector(node);
+    }
+    
+    if( !(prop in document.body.style)){
+      throw new Error('getCss 함수의 두 번째 인수는 유효한 css 속성이어야 합니다.')
+    }
+
+    
+    return getComputedStyle(node)[prop]
+
   }
-  // == return !value ? getCss(node,prop) : setCss(node,prop,value);
-}
+
+
+
+  function setCss(node,prop,value){
+
+    if(typeof node === 'string') node = document.querySelector(node);
+
+    if(!(prop in document.body.style)) throw new Error('setCss 함수의 두 번째 인수는 유효한 css속성이어야 합니다.');
+
+    if(!value) throw new Error('setCss 함수의 세 번째 인수는 필수 입력 값 입니다.');
+
+    node.style[prop] = value;
+
+  }
+
+
+
+  function css(node,prop,value){
+
+    
+    // if(!value){
+    //   // getter
+    //   return getCss(node,prop)
+
+    // }else{
+    //   // setter
+    //   setCss(node,prop,value)
+    // }
+
+    return !value ? getCss(node, prop) : setCss(node, prop, value)
+
+    
+  }
+
+  return css
+
+
+})()
+
+
+
+console.log( css );
+
+
+
+
+
+
+
+
+
+
+
+
 
 // node의 값을 'h1'으로 받았을 경우
 

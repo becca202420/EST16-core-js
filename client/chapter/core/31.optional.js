@@ -2,13 +2,14 @@
 /* Optional Chaining          */
 /* -------------------------- */
 
+
 const portableFan = {
   maker: 'fromB',
   brand: 'FD221',
   type: 'neckband',
   photo: {
     static: 'https://bit.ly/3OS50UD',
-    animate: 'https://bit.ly/3P8646q',
+    animate: 'https://bit.ly/3P8646q'
   },
   getFullName() {
     return `${this.brand}, ${this.maker}`;
@@ -25,22 +26,34 @@ const portableFan = {
 //   }
 // }
 
+
 // 위 구문을 논리곱 연산자를 사용한 방식으로 변경해봅니다.
 
 // portableFan && portableFan.photos && portableFan.photos.animate
 
 // 위 구문을 옵셔널 체이닝을 사용한 구문으로 변경해봅니다.
-portableFan.photos?.animate;
+portableFan.photos?.animate
 
 // 메서드 사용 시, 옵셔널 체이닝을 사용해봅니다.
 
-const fullName = portableFan.getFullName?.();
+const fullName = portableFan.getFullName?.()
 
 // 객체의 프로퍼티 접근 시, 옵셔널 체이닝을 사용해봅니다.
 
+
 // Browser API
 
-// 자바스크립트 싱글 스레드
+// 자바스크립트 싱글 스레드 
+
+
+
+
+
+
+
+
+
+
 
 // const timeout = setTimeout(()=>{
 
@@ -54,6 +67,7 @@ const fullName = portableFan.getFullName?.();
 //   button.addEventListener('click',()=>{})
 
 // },5000)
+
 
 // console.log('1번');
 
@@ -69,7 +83,10 @@ const fullName = portableFan.getFullName?.();
 //   console.log('2번');
 // }, 3000);
 
+
 // console.log('3번');
+
+
 
 let count = 0;
 
@@ -83,8 +100,34 @@ const h3 = document.querySelector('button');
 //   }
 // },1)
 
-function animation() {
-  h3.style.transform = `translate(0px,${++count}px) rotate(${++count}deg)`;
 
-  requestAnimationFrame(animation);
+function animation(){
+
+  
+  h3.style.transform = `translate(0px,${++count}px) rotate(${++count}deg)`
+  
+  const id = requestAnimationFrame(animation)
+
+
+  if(count >= 300){
+    cancelAnimationFrame(id);
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

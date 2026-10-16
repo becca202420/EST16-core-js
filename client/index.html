@@ -6,24 +6,32 @@
     <title>JS를 배워보자!</title>
 
     <!-- <script src="./index.js"></script> -->
-    <script defer src="./lib/utils/type.js"></script>
-    <script defer src="./chapter/core/30.closure-2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+    <!-- <script src="./lib/utils/type.js"></script> -->
+    <!-- <script src="./lib/dom/getNode.js"></script> -->
+    <!-- <script src="./lib/dom/attr.js"></script> -->
+    <!-- <script src="./lib/dom/insert.js"></script> -->
+    <script type="module" src="./main.js"></script>
+
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1 lang="en" class="first">
-      <span>Learning</span>
-      ECMAScript
-    </h1>
-    <!-- 주석입니다. -->
-    <h2 lang="en" class="second">
-      <span>Hello</span>
-      world
-    </h2>
-    <!-- 주석입니다 -->
-    <h3 lang="en" class="third">
-      <span>Javascript</span>
-    </h3>
+    <form class="calculator">
+      <div class="first">
+        <label for="firstNumber">First Value</label>
+        <input type="number" name="first" id="firstNumber" required />
+      </div>
 
-    <button type="button">click me!</button>
+      <div class="operator">+</div>
+
+      <div class="second">
+        <label for="secondNumber">Second Value</label>
+        <input type="number" name="second" id="secondNumber" required />
+      </div>
+
+      <input id="clear" type="submit" value="clear" />
+
+      <div class="result">-</div>
+    </form>
   </body>
 </html>
